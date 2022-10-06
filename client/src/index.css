@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,700;1,800;1,900&family=Poppins:wght@300;400;500;600&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+body,html{
+  overflow: hidden;
+}
+
+.primary{
+  background-color: #161C51;
+  padding: 5px 20px;
+  color: white;
+  border: none;
+}
