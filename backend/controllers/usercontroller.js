@@ -1,13 +1,13 @@
 const User = require('../models/User')
 
- async function create_User(req,res){
+ async function create_User (req,res) {
     try{
         const result = await User.findOne({
             email: req.body.email,
             password : req.body.password,
         });
         if(result){
-            res.status(500).json("Error");
+            res.send(result);
         }else{
             res.status(500).json('Error');
         }

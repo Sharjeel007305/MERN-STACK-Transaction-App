@@ -1,25 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Form, message} from 'antd';
 import Input from 'antd/lib/input/Input';
 import { Link, useNavigate } from 'react-router-dom';
 import "../resources/authentication.css";
 import axios from 'axios';
+import Spinner from '../components/Spinner';
+
 
 const Login = () => {
+    const [loading, setloading] = useState(false)
     const navigate = useNavigate()
     const onFinish = async (values) => {
       try{
-       const response = await axios.post("/api/login", values)
-       localStorage.setItem('Transaction', JSON.stringify(response))
-       message.success('Login successfully')
+        setloading(true)
+       const response = await axios.post("/api/users/login", values);
+       localStorage.setItem('Transaction', JSON.stringify({...response.data, password:''}));
+      //  const ls = localStorage.setItem('Transaction', JSON.stringify({...response.data, password:''}));
+       setloading(false)
        navigate("/")
+       console.log(localStorage)
+       message.success('Login successfully')
+       
       } catch(error){
+        setloading(false)
         message.error('Login failed')
       }
     }
+    useEffect(() => {
+      if(localStorage.getItem('transaction')) {
+        navigate("/") 
+      }
+    } ,[])
 
   return (
     <div className="register">
+      {loading && <Spinner /> }
         <div className="row justify-content-center align-items-center w-100 h-100">
             <div className="col-md-4">
                 <Form layout="vertical" onFinish={onFinish}>

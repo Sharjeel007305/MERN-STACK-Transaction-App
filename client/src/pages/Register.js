@@ -1,22 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Form, message} from 'antd';
 import Input from 'antd/lib/input/Input';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "../resources/authentication.css";
 import axios from 'axios'
+import Spinner from '../components/Spinner';
 
 const Register = () => {
+    const [loading, setloading] = useState(false)
+    const navigate = useNavigate()
+
     const onFinish = async(values) => {
         try{
+            setloading(true)
             await axios.post("/api/users/register", values)
             message.success("Registration Successfull")
+            setloading(false)
         }catch(error){
+            setloading(false)
             message.error('something went wrong')
         }
     }
-
+    useEffect(() => {
+        if(localStorage.getItem('transaction')) {
+          navigate("/")
+        }
+      } ,[])
   return (
     <div className="register">
+        {loading && <Spinner /> }
         <div className="row justify-content-center align-items-center w-100 h-100">
             <div className="col-md-5">
                 <div className="lottie">
