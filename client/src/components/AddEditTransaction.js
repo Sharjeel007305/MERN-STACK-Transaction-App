@@ -7,10 +7,11 @@ import axios from 'axios';
 const AddEdittransaction = (showAddEditTransactionModal,setshowAddEditTransactionModal) => {
     const [loading, setloading] = useState(false)
 
-    const onFinish = async(values) => {
+    const onFinish = async (values) => {
         try{
+            const user = JSON.parse(localStorage.getItem("transaction"))
             setloading(true)
-            await axios.post("/api/transactions/add-transaction", values)
+            await axios.post("/api/transactions/add-transaction", {...values, userid: user._id})
             message.success("Transaction added Successfull")
             setshowAddEditTransactionModal(false)
             setloading(false)
@@ -42,7 +43,6 @@ const AddEdittransaction = (showAddEditTransactionModal,setshowAddEditTransactio
           {" "}
          <Select.Option value="salary">Salary</Select.Option>
          <Select.Option value="freenlance">Freenlance</Select.Option>
-         <Select.Option value="food">Food</Select.Option>
          <Select.Option value="entertainment">Entertainment</Select.Option>
          <Select.Option value="education">Education</Select.Option>
          <Select.Option value="medical">Medical</Select.Option>
@@ -53,7 +53,7 @@ const AddEdittransaction = (showAddEditTransactionModal,setshowAddEditTransactio
         <Form.Item label= "Date" name="date">
          <Input type="date"/>
         </Form.Item>
-        <Form.Item label= "Refernce" name="refernce">
+        <Form.Item label= "Reference" name="reference">
          <Input type="text"/>
         </Form.Item>
         <Form.Item label= "Description" name="description">

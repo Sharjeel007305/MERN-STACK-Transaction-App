@@ -23,14 +23,16 @@ const DefaultLayout = (props) => {
     />
   );
   return (
+    <>
+   
     <div className="layout">
         <div className="header d-flex justify-content-between align-item-center">
             <div>
                 <h1 className="logo">Transaction Application</h1>
             </div>
             <div>
-            <Dropdown overlay={menu} placement="bottomLeft">
-                <button className="primary">{users.data.name}</button>
+            <Dropdown overlay={menu} placement="bottomLeft" >
+                <button className="primary">{users.name}</button>
             </Dropdown>
             </div>
         </div>
@@ -40,6 +42,7 @@ const DefaultLayout = (props) => {
 
 
     </div>
+    </>
   )
 }
 
