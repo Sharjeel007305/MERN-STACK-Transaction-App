@@ -4,14 +4,15 @@ import Spinner from './Spinner';
 import axios from 'axios';
 
 
-const AddEdittransaction = (showAddEditTransactionModal,setshowAddEditTransactionModal) => {
+const AddEdittransaction = ({showAddEditTransactionModal,setshowAddEditTransactionModal, getTransactions }) => {
     const [loading, setloading] = useState(false)
 
     const onFinish = async (values) => {
         try{
-            const user = JSON.parse(localStorage.getItem("transaction"))
+            const user = JSON.parse(localStorage.getItem("users"))
             setloading(true)
-            await axios.post("/api/transactions/add-transaction", {...values, userid: user._id})
+            await axios.post("/api/transactions/add-transaction", {...values, userId: user._id});
+            getTransactions()
             message.success("Transaction added Successfull")
             setshowAddEditTransactionModal(false)
             setloading(false)

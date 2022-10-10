@@ -52,7 +52,7 @@ const Register = () => {
                         <Input />
                     </Form.Item>
                     <Form.Item label="Password" name="password">
-                        <Input />
+                        <Input type="password"/>
                     </Form.Item>
                     <div className="d-flex justify-content-between align-item-center">
                         <Link to="/login"> Already Registered , Click Here To Login</Link>

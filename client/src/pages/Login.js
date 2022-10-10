@@ -14,12 +14,12 @@ const Login = () => {
       try{
         setloading(true)
        const response = await axios.post("/api/users/login", values);
-       localStorage.setItem('Transaction', JSON.stringify({...response.data, password:''}));
-      //  const ls = localStorage.setItem('Transaction', JSON.stringify({...response.data, password:''}));
+       localStorage.setItem('users', JSON.stringify({...response.data, password:''}));
+       console.log(response, "smdgjsagd")
        setloading(false)
-       navigate("/")
        console.log(localStorage)
        message.success('Login successfully')
+       navigate("/")
        
       } catch(error){
         setloading(false)
@@ -44,7 +44,7 @@ const Login = () => {
                         <Input />
                     </Form.Item>
                     <Form.Item label="Password" name="password">
-                        <Input />
+                        <Input type="password"/>
                     </Form.Item>
                     <div className="d-flex justify-content-between align-item-center">
                         <Link to="/register"> Not Register , Click Here To Register</Link>

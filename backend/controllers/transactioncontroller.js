@@ -14,8 +14,8 @@ async function add_transaction (req,res) {
 
 async function Get_transaction (req,res) {
     try{
-       const transactions = await transaction.find({});
-       response.send(transactions);
+       const transactions = await transaction.find({userId: req.body.userId});
+       res.send(transactions);
     } catch(error){
         res.status(500).json(error);
     }

@@ -4,7 +4,7 @@ import '../resources/default-layout.css';
 import { useNavigate } from 'react-router-dom';
 
 const DefaultLayout = (props) => {
-  const users = JSON.parse(localStorage.getItem('Transaction'));
+  const users = JSON.parse(localStorage.getItem('users'));
   const navigate = useNavigate();
   const menu = (
     <Menu
@@ -12,7 +12,7 @@ const DefaultLayout = (props) => {
         {
           label: (
           <li onClick={()=> {
-            localStorage.removeItem('Transaction')
+            localStorage.removeItem('users')
             navigate("/login")
           }}>
             Logout
