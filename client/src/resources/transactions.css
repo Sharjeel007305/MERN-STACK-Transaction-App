@@ -29,3 +29,22 @@
     box-shadow: none !important;
     outline: none !important;
 }
+
+.view-switch{
+    border: 1px solid rgba(0, 0, 0,0.71);
+    border-radius: 5px;
+    padding: 5px 10px;
+}   
+
+.anticon svg{
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.active-icon{
+    color: black;
+}
+
+.inactive-icon{
+    color: gray;
+}

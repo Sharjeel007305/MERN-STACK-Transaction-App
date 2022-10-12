@@ -32,7 +32,7 @@ async function Get_transaction (req,res) {
             
        
         userId: req.body.userId,
-        ...(type !== "all" && (type))
+        ...(type!== "all" && {type})
     });
        res.send(transactions);
     } catch(error){

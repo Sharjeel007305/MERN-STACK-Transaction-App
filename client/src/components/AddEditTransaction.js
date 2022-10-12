@@ -36,7 +36,7 @@ const AddEdittransaction = ({showAddEditTransactionModal,setshowAddEditTransacti
         <Form.Item label= "Type" name="type">
           <Select>
          <Select.Option value="Income">Income</Select.Option>
-         <Select.Option value="expense">Expense</Select.Option>
+         <Select.Option value="expence">Expence</Select.Option>
          </Select>
         </Form.Item>
         <Form.Item label= "Category" name="category">

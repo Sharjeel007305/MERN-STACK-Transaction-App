@@ -7,6 +7,8 @@ import DefaultLayout from '../components/DefaultLayout';
 import Spinner from '../components/Spinner.js';
 import "../resources/transactions.css"
 import moment from "moment"
+import { UnorderedListOutlined, AreaChartOutlined  } from '@ant-design/icons';
+import Analatics from '../components/Analatics.js';
 
 
 const { RangePicker } = DatePicker;
@@ -15,6 +17,7 @@ const Home = () => {
   const [loading,setloading] = useState(false);
   const [transactionsData, settransactionsData] = useState([]);
   const [selectedRange, setselectedRange] = useState([]);
+  const [viewType, setViewType] = useState();
   const [frequency, setfrequency] = useState('7');
   const [type, setType] = useState('all');
   
@@ -88,20 +91,40 @@ const Home = () => {
         </div>
         <div className= "d-flex flex-column mx-5" >
           <h6>Select Type</h6>
-          <Select value={type} onChange={(value)=> setType(value)}>
+          <Select values={type} onChange={(values)=> setType(values)}>
             <Select.Option value="all">All</Select.Option>
             <Select.Option value="Income">Income</Select.Option>
             <Select.Option value="expence">Expence</Select.Option>
           </Select>
         </div>
       </div>
-      <div>
+      <div className='d-flex'>
+        <div>
+            <div className='view-switch mx-5'>
+            <UnorderedListOutlined className={`mx-3 ${
+              viewType === 'table' ? 'active-icon' : 'inactive-icon'}`} 
+              onClick={()=>setViewType('table')}
+              size={30}
+              />
+            <AreaChartOutlined  className={`${
+              viewType === 'analytics' ? 'active-icon' : 'inactive-icon'}`}
+              onClick={()=>setViewType('analytics')}
+               size={30}
+               />
+            </div>
+        </div>
       <button className="primary" onClick={()=> setshowAddEditTransactionModal(true)}>ADD NEW</button>
     </div>
     </div>
  
     <div className="table-analtics">
-      <Table  columns={columns} dataSource={transactionsData} />
+      { viewType === "table" ? <div className="table">
+     <Table  columns={columns} dataSource={transactionsData} />
+     </div> : <Analatics  transactions={transactionsData}/>
+
+      }
+     
+      
     </div>
 
    {showAddEditTransactionModal && (
