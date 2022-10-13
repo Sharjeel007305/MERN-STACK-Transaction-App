@@ -4,17 +4,40 @@ import Spinner from './Spinner';
 import axios from 'axios';
 
 
-const AddEdittransaction = ({showAddEditTransactionModal,setshowAddEditTransactionModal, getTransactions }) => {
+const AddEdittransaction = ({
+  showAddEditTransactionModal,
+  setshowAddEditTransactionModal, 
+  selectedItemForEdit,
+  getTransactions,
+  setSelectedItemForEdit 
+ }) => {
     const [loading, setloading] = useState(false)
 
     const onFinish = async (values) => {
         try{
             const user = JSON.parse(localStorage.getItem("users"))
             setloading(true)
-            await axios.post("/api/transactions/add-transaction", {...values, userId: user._id});
+           if(selectedItemForEdit){
+            await axios.post("/api/transactions/eidt-transaction", {
+             payload : {
+              ...values, 
+              userId: user._id,
+             },
+              transactionId : selectedItemForEdit._id
+            });
+            getTransactions()
+            message.success("Transaction Updated Successfull")
+
+           }else{
+            await axios.post("/api/transactions/add-transaction", {
+              ...values,
+               userId: user._id
+              });
             getTransactions()
             message.success("Transaction added Successfull")
+           }
             setshowAddEditTransactionModal(false)
+            setSelectedItemForEdit(null)
             setloading(false)
         }catch(error){
             setloading(false)
@@ -23,13 +46,13 @@ const AddEdittransaction = ({showAddEditTransactionModal,setshowAddEditTransacti
     }
   return (
     <Modal 
-      title="add Transaction" 
+      title={selectedItemForEdit ? "Edit Transaction": "Add Transaction " }
       visible={showAddEditTransactionModal} 
       onCancel={()=> setshowAddEditTransactionModal(false)}
       footer={false}
       >
         {loading && <Spinner /> }
-      <Form layout="vertical" className="transaction-form" onFinish={onFinish}>
+      <Form layout="vertical" className="transaction-form" onFinish={onFinish} initialValues={selectedItemForEdit}>
         <Form.Item label= "Amount" name="amount">
           <Input type="text"/>
         </Form.Item>
@@ -44,10 +67,12 @@ const AddEdittransaction = ({showAddEditTransactionModal,setshowAddEditTransacti
           {" "}
          <Select.Option value="salary">Salary</Select.Option>
          <Select.Option value="freenlance">Freenlance</Select.Option>
+         <Select.Option value="food">Food</Select.Option>
          <Select.Option value="entertainment">Entertainment</Select.Option>
+         <Select.Option value="investment">Investment</Select.Option>
+         <Select.Option value="travel">Travel</Select.Option>
          <Select.Option value="education">Education</Select.Option>
          <Select.Option value="medical">Medical</Select.Option>
-         <Select.Option value="food">Food</Select.Option>
          <Select.Option value="tax">Tax</Select.Option>
          </Select>
         </Form.Item>

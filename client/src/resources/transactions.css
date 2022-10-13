@@ -1,7 +1,7 @@
 .filter{
-    box-shadow: 0 0 3px gray;
+    box-shadow: 0 0 2px gray;
     padding: 15px 20px;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .transaction-form label{
@@ -32,7 +32,7 @@
 
 .view-switch{
     border: 1px solid rgba(0, 0, 0,0.71);
-    border-radius: 5px;
+    border-radius: 3px;
     padding: 5px 10px;
 }   
 
@@ -47,4 +47,14 @@
 
 .inactive-icon{
     color: gray;
+}
+
+.ant-picker-range{
+    border: 1px solid black !important;
+}
+
+@media screen and (max-width:600px) {
+    .filter{
+        overflow-x: scroll;
+    }
 }

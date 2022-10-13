@@ -3,7 +3,7 @@
 }
 
 .header{
-    background-color: #92a8d1;
+    background-color: #76a6f4d0;
     padding: 20px;
     border-bottom-right-radius: 25px;
     border-bottom-left-radius: 25px;
@@ -11,7 +11,7 @@
 
 .logo{
     font-size: 30px;
-    color: rgba( 255, 255, 255, 0.716);
+    color:rgb(0 0 0);
     margin: 0 !important;
     cursor: pointer;
 }
@@ -23,11 +23,12 @@
 
 .content{
     height: 85vh;
-    box-shadow: 0 0 3px gray;
+    box-shadow: 0 0 2px gray;
     margin-top: 20px;
     border-top-right-radius: 25px;
     border-top-left-radius: 25px;
     padding: 15px;
+    overflow-y: scroll;
 }
 .spinner{
     position: absolute;

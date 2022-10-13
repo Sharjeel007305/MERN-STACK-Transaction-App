@@ -14,6 +14,8 @@ const Analatics = ({transactions}) => {
     const totalExpenceTurnover = transactions.filter(transaction => transaction.type==='expence').reduce((acc,transaction) => acc + transaction.amount, 0 )
     const totalIncomeTurnoverPercentage = (totalIncomeTurnover/totalTurnover)*100
     const totalExpenceTurnoverPercentage = (totalExpenceTurnover/totalTurnover)*100
+     
+    const categories = [ "salary", "entertainment", "freelance", "food", "travel", "investment", "education", "medical" , "tax"]
     return (
     <div className='analytics'>
       <div className="row">
@@ -24,8 +26,8 @@ const Analatics = ({transactions}) => {
                 <h5>Income : {totalIncomeTransactions.length}</h5>
                 <h5>Expence: {totalExpenceTransactions.length}</h5>
                 <div className='progress-bars'>
-                        <Progress className="mx-5" strokeColor='green' type='circle' percent={totalIncomeTransactionsPercentage.toFixed(0)}/>
-                        <Progress strokeColor='red' type='circle' percent={totalExpenceTransactionsPercentage.toFixed(0)}/>
+                        <Progress className="mx-5" strokeColor='#5dd64f' type='circle' percent={totalIncomeTransactionsPercentage.toFixed(0)}/>
+                        <Progress strokeColor='#E5572F' type='circle' percent={totalExpenceTransactionsPercentage.toFixed(0)}/>
                 </div>
 
             </div>
@@ -38,14 +40,45 @@ const Analatics = ({transactions}) => {
                 <h5>Income : {totalIncomeTurnover}</h5>
                 <h5>Expence: {totalExpenceTurnover}</h5>
                 <div className='progress-bars'>
-                        <Progress className="mx-5" strokeColor='green' type='circle' percent={totalIncomeTurnoverPercentage.toFixed(0)}/>
-                        <Progress strokeColor='red' type='circle' percent={totalExpenceTurnoverPercentage.toFixed(0)}/>
+                        <Progress className="mx-5" strokeColor='5dd64f' type='circle' percent={totalIncomeTurnoverPercentage.toFixed(0)}/>
+                        <Progress strokeColor='#E5572F' type='circle' percent={totalExpenceTurnoverPercentage.toFixed(0)}/>
                 </div>
 
             </div>
 
         </div>
 
+      </div>
+      <hr />
+      <div className="row">
+        <div className="col-md-6">
+          <div className="category-analysis">
+            <h4>Income - category Wise</h4>
+            {categories.map((category)=>{
+              const amount = transactions.filter(t=>t.type == 'income' && t.category === category).reduce((acc,t)=> acc + t.amount, 0)
+              return(
+                amount > 0 && <div className="category-card">
+                <h5>{category}</h5>
+                <Progress strokeColor='#0B5AD9' percent={((amount/ totalIncomeTurnover)*100).toFixed(0)}/>
+                </div>
+              ) 
+            })}
+          </div>
+        </div>
+        <div className="col-md-6">
+          <div className="category-analysis">
+            <h4>Expence - category Wise</h4>
+            {categories.map((category)=>{
+              const amount = transactions.filter(t=>t.type == 'expence' && t.category === category).reduce((acc,t)=> acc + t.amount, 0)
+              return(
+                amount > 0 && <div className="category-card">
+                <h5>{category}</h5>
+                <Progress percent={((amount/ totalExpenceTurnover)*100).toFixed(0)}/>
+                </div>
+              ) 
+            })}
+          </div>
+        </div>
       </div>
     </div>
   )

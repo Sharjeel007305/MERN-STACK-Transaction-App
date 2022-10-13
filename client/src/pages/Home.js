@@ -7,13 +7,14 @@ import DefaultLayout from '../components/DefaultLayout';
 import Spinner from '../components/Spinner.js';
 import "../resources/transactions.css"
 import moment from "moment"
-import { UnorderedListOutlined, AreaChartOutlined  } from '@ant-design/icons';
+import { UnorderedListOutlined, AreaChartOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import Analatics from '../components/Analatics.js';
 
 
 const { RangePicker } = DatePicker;
 const Home = () => {
   const [showAddEditTransactionModal, setshowAddEditTransactionModal] = useState(false);
+  const [selectedItemForEdit, setSelectedItemForEdit] = useState(null)
   const [loading,setloading] = useState(false);
   const [transactionsData, settransactionsData] = useState([]);
   const [selectedRange, setselectedRange] = useState([]);
@@ -42,6 +43,22 @@ const Home = () => {
     }
   }
 
+  const deleteTransactions = async(record)=> {
+    try{
+      setloading(true)
+     const response = await axios.post("/api/transactions/delete-transaction",
+      {
+        transactionId : record._id
+    
+    });
+    message.success("Transaction Deleted successfully")
+    getTransactions()
+     setloading(false)
+    } catch(error){
+      setloading(false)
+      message.error('Something went wrong');
+    }
+  }
   useEffect(()=>{
     getTransactions()
   },[frequency, selectedRange, type])
@@ -67,6 +84,19 @@ const Home = () => {
     {
       title : "Reference",
       dataIndex: "reference",
+    },
+    {
+      title: "Actions",
+      dataIndex: "actions",
+      render: (text, record)=>{
+        return <div>
+          <EditOutlined onClick={()=> {
+            setSelectedItemForEdit(record)
+            setshowAddEditTransactionModal(true)
+          }} />
+          <DeleteOutlined className="mx-3" onClick={()=>deleteTransactions(record)}/>
+        </div>
+      }
     }
   ]
 
@@ -93,7 +123,7 @@ const Home = () => {
           <h6>Select Type</h6>
           <Select values={type} onChange={(values)=> setType(values)}>
             <Select.Option value="all">All</Select.Option>
-            <Select.Option value="Income">Income</Select.Option>
+            <Select.Option value="income">Income</Select.Option>
             <Select.Option value="expence">Expence</Select.Option>
           </Select>
         </div>
@@ -131,7 +161,9 @@ const Home = () => {
    <AddEdittransaction
    showAddEditTransactionModal= {showAddEditTransactionModal}
    setshowAddEditTransactionModal = {setshowAddEditTransactionModal}
+   selectedItemForEdit={selectedItemForEdit}
    getTransactions = {getTransactions}
+   setSelectedItemForEdit={setSelectedItemForEdit}
    />)}
    </DefaultLayout>
   )

@@ -38,8 +38,7 @@ const Login = () => {
         <div className="row justify-content-center align-items-center w-100 h-100">
             <div className="col-md-4">
                 <Form layout="vertical" onFinish={onFinish}>
-                <h1> TRANSACTION APPLICATION / Login</h1>
-                <hr />
+                <h1>LOGIN</h1>
                     <Form.Item label="Email" name="email">
                         <Input />
                     </Form.Item>
@@ -48,7 +47,7 @@ const Login = () => {
                     </Form.Item>
                     <div className="d-flex justify-content-between align-item-center">
                         <Link to="/register"> Not Register , Click Here To Register</Link>
-                        <button className="primary" type="submit">LOGIN</button>
+                        <button className="secondary" type="submit">LOGIN</button>
                     </div>
                 </Form>
                 

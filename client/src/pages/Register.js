@@ -43,8 +43,7 @@ const Register = () => {
             </div>
             <div className="col-md-4">
                 <Form layout="vertical" onFinish={onFinish}>
-                <h1> TRANSACTION APPLICATION / REGISTER</h1>
-                <hr />
+                <h1>REGISTER</h1>
                     <Form.Item label="Name" name="name">
                         <Input />
                     </Form.Item>
@@ -56,7 +55,7 @@ const Register = () => {
                     </Form.Item>
                     <div className="d-flex justify-content-between align-item-center">
                         <Link to="/login"> Already Registered , Click Here To Login</Link>
-                        <button className="primary" type="submit">REGISTER</button>
+                        <button className="secondary" type="submit">REGISTER</button>
                     </div>
                 </Form>
                 
